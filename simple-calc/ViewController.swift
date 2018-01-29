@@ -51,7 +51,7 @@ class ViewController: UIViewController {
             preNum = Double(label.text!)!
             switch sender.tag {
             case 18: // plus
-                label.text = label.text! + " + "
+                label.text = " + "
             case 17: // subtracts
                 label.text = "-"
             case 16: // times
