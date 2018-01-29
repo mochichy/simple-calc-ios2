@@ -48,7 +48,9 @@ class ViewController: UIViewController {
     
     @IBAction func buttons(_ sender: UIButton) {
         if label.text != "" && sender.tag != 19 {
-            preNum = Double(label.text!)!
+            if sender.tag != 14 {
+                preNum = Double(label.text!)!
+            }
             switch sender.tag {
             case 18: // plus
                 label.text = " + "
@@ -83,6 +85,7 @@ class ViewController: UIViewController {
                 sum = 0
                 numOfDec = 0
             }
+            
             
             operation = sender.tag
             performingMath = true
