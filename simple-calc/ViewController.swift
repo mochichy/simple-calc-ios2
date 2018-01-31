@@ -17,7 +17,10 @@ class ViewController: UIViewController {
     var count = 1
     var sum: Double = 0
     var numOfDec = 0
+    var history: [String] = []
     
+   
+    @IBOutlet weak var scrollview: UIScrollView!
     @IBOutlet weak var label: UILabel!
     
     @IBAction func Numbers(_ sender: UIButton) {
@@ -93,6 +96,11 @@ class ViewController: UIViewController {
             switch operation {
             case 18:
                 label.text = String(preNum + numberOnScreen)
+                let num = preNum + numberOnScreen
+                
+                let str = "\(preNum) + \(numberOnScreen) = \(num)"
+                history.append(str)
+                print(history)
             case 17:
                 label.text = String(preNum - numberOnScreen)
             case 16:
@@ -114,6 +122,41 @@ class ViewController: UIViewController {
             sum = 0
             numOfDec = 0
         }
+        
+
+
+    }
+    
+    /*class SecondViewController: UIViewController {
+        for index in 0...history.count {
+            let label = UILabel(frame: CGReact(x: 50, y: index * 25 + 50, width: 300, height: 40))
+            label.text = history[index]
+            scrollview.addSubview(label)
+        }
+    }*/
+    
+    override func viewWillAppear(_ animated: Bool) {
+        print(scrollview)
+        if(history.count > 0 && scrollview != nil) {
+            for index in 0...history.count - 1 {
+                let label = UILabel(frame: CGRect(x: 50, y: index * 25 + 50, width: 300, height: 40))
+                
+                label.text = history[index]
+                print(index)
+                print(history[index])
+                print(label)
+                
+                scrollview.addSubview(label)
+            }
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        let talkView = segue.destination as! ViewController
+        
+        talkView.history = history
+        
     }
     
     override func viewDidLoad() {
