@@ -17,6 +17,7 @@ class ViewController: UIViewController {
     var count = 1
     var sum: Double = 0
     var numOfDec = 0
+    var nums: [Double] = []
     var history: [String] = []
     
    
@@ -77,9 +78,11 @@ class ViewController: UIViewController {
                 label.text = "avg"
                 sum = sum + numberOnScreen
                 count = count + 1
+                nums.append(numberOnScreen)
             case 11: //count
                 label.text = "count"
                 count = count + 1
+                nums.append(numberOnScreen)
             default:
                 label.text = ""
                 preNum = 0
@@ -109,9 +112,21 @@ class ViewController: UIViewController {
                 history.append("\(preNum) / \(numberOnScreen) = \(preNum / numberOnScreen)")
             case 11:
                 label.text = String(count)
+                var str: String = ""
+                for index in 0...nums.count - 1 {
+                    str += "\(nums[index]) count "
+                }
+                str += "\(numberOnScreen) = \(count)"
+                history.append(str)
             case 12:
                 sum = sum + numberOnScreen
                 label.text = String(sum / Double(count))
+                var str: String = ""
+                for index in 0...nums.count - 1 {
+                    str += "\(nums[index]) avg "
+                }
+                str += "\(numberOnScreen) = \(sum / Double(count))"
+                history.append(str)
                 
             default:
                 label.text = ""
@@ -121,6 +136,7 @@ class ViewController: UIViewController {
             count = 1
             sum = 0
             numOfDec = 0
+            nums = []
         }
 
     }
@@ -128,7 +144,7 @@ class ViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         if(history.count > 0 && scrollview != nil) {
             for index in 0...history.count - 1 {
-                let label = UILabel(frame: CGRect(x: 50, y: index * 25 + 50, width: 300, height: 40))
+                let label = UILabel(frame: CGRect(x: 15, y: index * 25 + 50, width: 300, height: 40))
                 
                 label.text = history[index]
                 print(history[index])
